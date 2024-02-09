@@ -27,7 +27,13 @@ db.orderLineItems = require('../models/orderlineitemModel')(sequelize,DataTypes)
 module.exports = db 
 
 
-//one to one 
-// db.customers.hasOne(db.orders,{foreignKey:'customer_id'})
-// db.orders.belongsTo(db.customers,{foreignKey:'customer_id'})
+//one to many 
+db.grns.hasOne(db.items,{foreignKey:'grn_id'})
+db.grns.hasOne(db.grnLineItems,{foreignKey:'grn_id'})
+db.grns.hasOne(db.orderLineItems,{foreignKey:'grn_id'})
+db.grns.hasOne(db.orders,{foreignKey:'grn_id'})
+db.orders.belongsTo(db.grns,{foreignKey:'grn_id'})
+db.orderLineItems.belongsTo(db.grns,{foreignKey:'grn_id'})
+db.items.belongsTo(db.grns,{foreignKey:'grn_id'})
+db.grnLineItems.belongsTo(db.grns,{foreignKey:'grn_id'})
 
